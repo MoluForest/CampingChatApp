@@ -46,7 +46,7 @@ async function sendPrompt() {
     const exportBtn = document.createElement('button');
     exportBtn.innerText = '📄 匯出';
     exportBtn.className = 'export-btn';
-    exportBtn.onclick = () => exportToDocx(data.reply);
+    exportBtn.onclick = () => exportToDocx(stripMarkdown(data.reply));
 
     // 將內容與按鈕加入 chat-reply 框
     newReply.innerHTML = '🔽 ' + replyTime + ' 回應：<br>' + markdownToHTML(data.reply);
@@ -96,4 +96,18 @@ function exportToDocx(text) {
   a.download = '小露亂裝_行程推薦.doc';
   a.click();
   URL.revokeObjectURL(url);
+}
+
+function stripMarkdown(text) {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '$1')  // 去除粗體標記
+    .replace(/\*(.*?)\*/g, '$1')      // 去除斜體標記
+    .replace(/`(.*?)`/g, '$1')        // 去除行內程式碼標記
+    .replace(/!\[.*?\]\(.*?\)/g, '')  // 去除圖片
+    .replace(/\[(.*?)\]\(.*?\)/g, '$1') // 去除連結，只保留文字
+    .replace(/#+\s?(.*)/g, '$1')      // 去除標題符號
+    .replace(/>\s?(.*)/g, '$1')       // 去除引用符號
+    .replace(/[-*]\s+/g, '')           // 去除列表符號
+    .replace(/\n{2,}/g, '\n')         // 多重換行合併為一個
+    .trim();
 }
