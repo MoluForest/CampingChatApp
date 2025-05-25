@@ -48,6 +48,6 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('✅ 伺服器啟動於 http://localhost:3000');
-});
+// app.listen(3000, () => {
+//   console.log('✅ 伺服器啟動於 http://localhost:3000');
+// });
