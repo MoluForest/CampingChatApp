@@ -93,7 +93,7 @@ function exportToDocx(text) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'gemini_response.doc';
+  a.download = '小露亂裝_行程推薦.doc';
   a.click();
   URL.revokeObjectURL(url);
 }
